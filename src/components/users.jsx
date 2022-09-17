@@ -4,12 +4,12 @@ import api from '../api'
 const Users = () => {
   const [users, setUsers ] = useState(api.users.fetchAll())
   const tableQualityBadge = (item) => {
-    let classes = 'm-2 badge bg-'
+    let classes = 'm-1 badge bg-'
     return  classes+=item
   }
 
   const handleDelete = (userId) => {
-    setUsers(prevState => prevState.filter(user => user._id !== userId))
+    setUsers(users.filter(user => user._id !== user.userId))
   }
 
   const renderPhrase = (number) => {
@@ -25,14 +25,12 @@ const Users = () => {
    }
   }
 
-  const phraseBadge = (number) => {
-    let classes = 'badge m-2 '
-    return classes += number === 0 ? 'bg-danger' : 'bg-primary' 
-  }
-  
   return (
     <>
-      <span className={phraseBadge(users.length)}><h3>{renderPhrase(users.length)}</h3></span>
+      <span className={
+        'm-2 badge bg-' +
+        (users.length > 0 ? 'primary' : 'danger')
+        }><h3>{renderPhrase(users.length)}</h3></span>
 
       <table className="table">
         <thead>
