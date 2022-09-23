@@ -12,11 +12,14 @@ function App() {
   }
 
   const handleToggleBookMark = (id) => {
-    setUsers(users.map(user => {
+    const bookmarkState = users.map(user => {
       if (user._id === id) {
-        console.log(id)
+        // eslint-disable-next-line no-unused-expressions
+        console.log(id);
       }
-    }))
+      return user
+    }) 
+    setUsers(bookmarkState)
   }
 
   return (
@@ -26,5 +29,4 @@ function App() {
     </div>
   )
 }
-
 export default App
