@@ -12,10 +12,10 @@ function App() {
   }
 
   const handleToggleBookMark = (id) => {
-    const bookmarkState = users.map(user => {
+    const bookmarkState = users.map(user => { 
       if (user._id === id) {
         // eslint-disable-next-line no-unused-expressions
-        console.log(id);
+        user.bookmark = !user.bookmark
       }
       return user
     }) 

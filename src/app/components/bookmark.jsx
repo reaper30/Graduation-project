@@ -5,9 +5,19 @@ const BookMark = ({status, id, onBookMark, ...rest}) => {
   return( 
     <>
       {status === false ? 
-        <i className="bi bi-bookmark-heart" style={{fontSize: 2 + "em"}} onClick={() => onBookMark(id)}></i>
+        <button 
+          onClick={() => onBookMark(id)}
+          className="btn btn-dark btn-sm"
+        >
+          <i className="bi bi-bookmark-heart" style={{fontSize: 1.1 + "em"}} ></i>
+        </button>
         : 
-        <i className="bi bi-bookmark-heart-fill" style={{fontSize: 2 + "em"}} onClick={() => onBookMark(id)}></i>
+        <button 
+         onClick={() => onBookMark(id)}
+         className="btn btn-outline-danger btn-sm"
+        >
+          <i className="bi bi-bookmark-heart-fill" style={{fontSize: 1.1 + "em"}} ></i>
+        </button>
       }
     </>
   )
