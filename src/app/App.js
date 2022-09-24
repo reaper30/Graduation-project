@@ -12,14 +12,15 @@ function App() {
   }
 
   const handleToggleBookMark = (id) => {
-    const bookmarkState = users.map(user => { 
-      if (user._id === id) {
-        // eslint-disable-next-line no-unused-expressions
-        user.bookmark = !user.bookmark
-      }
-      return user
-    }) 
-    setUsers(bookmarkState)
+    setUsers(
+        users.map(user => { 
+          if (user._id === id) {
+            // eslint-disable-next-line no-unused-expressions
+            user.bookmark = !user.bookmark
+        }
+        return user
+      }) 
+    )
   }
 
   return (

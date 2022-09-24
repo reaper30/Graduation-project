@@ -17,11 +17,9 @@ const SearchStatus = ({length}) => {
   return (
     <>
       <span className={
-        'm-2 badge bg-' +
-        (length > 0 ? 'primary' : 'danger')
-        }
-        >
-          <h5>{renderPhrase(length)}</h5>
+        'm-2 badge bg-' + (length > 0 ? 'primary' : 'danger')}
+      >
+        <h5>{renderPhrase(length)}</h5>
       </span>
     </>
   )
