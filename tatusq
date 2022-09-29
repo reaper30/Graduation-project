@@ -1,0 +1,53 @@
+[33mcommit 2d54f1d62e2d1cea0c79be02357dc6a559c24cfb[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: Ilgiz Burganov <vurganowilgiz@gmail.com>
+Date:   Sat Sep 24 17:27:05 2022 +0400
+
+    a little change code
+
+[33mcommit 83cbfd2fee5f37428270800dbacda1d71c5de7a8[m
+Author: Ilgiz Burganov <vurganowilgiz@gmail.com>
+Date:   Sat Sep 24 01:09:35 2022 +0400
+
+    fix 1
+
+[33mcommit e48a3517872932851bf5152569655b6e85a6d6be[m
+Author: Ilgiz Burganov <vurganowilgiz@gmail.com>
+Date:   Fri Sep 23 13:06:40 2022 +0400
+
+    finish version
+
+[33mcommit 85591f3914ddda970a356556ec3b8189d0c1d0ad[m
+Author: Ilgiz Burganov <vurganowilgiz@gmail.com>
+Date:   Fri Sep 23 12:15:27 2022 +0400
+
+    for vadim
+
+[33mcommit 788acff317aa72de3f773c61d4e1d77412923440[m
+Author: Ilgiz Burganov <vurganowilgiz@gmail.com>
+Date:   Thu Sep 22 22:31:55 2022 +0400
+
+    initial bookmark
+
+[33mcommit ad4368a9e1a1a44ab3aad1efc1b38a496e2bc42b[m
+Author: Ilgiz Burganov <vurganowilgiz@gmail.com>
+Date:   Mon Sep 19 21:30:06 2022 +0400
+
+    day 2
+
+[33mcommit 27cfb6c121de7d25427107feb22d7450e6b204b6[m
+Author: Ilgiz Burganov <vurganowilgiz@gmail.com>
+Date:   Sun Sep 18 00:16:31 2022 +0400
+
+    init project
+
+[33mcommit 093d9627e77d4d4c58d9d10be1e9ad132adbd6ce[m
+Author: Ilgiz Burganov <vurganowilgiz@gmail.com>
+Date:   Sat Sep 10 16:43:37 2022 +0400
+
+    init project
+
+[33mcommit b53dcaf16f5c7efe3c6bd8307c469607f7e3a305[m
+Author: Ilgiz <vurganowilgiz@gmail.com>
+Date:   Wed Sep 7 19:24:54 2022 +0400
+
+    Initialize project using Create React App
