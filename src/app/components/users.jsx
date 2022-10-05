@@ -6,12 +6,13 @@ import PropTypes from "prop-types"
 import GroupList from "./groupList"
 import SearchStatus from "./searchStatus"
 import api from "../api"
+import _ from "lodash"
 
 const Users = ({ users, ...rest }) => {
   const [currentPage, setCurrentPage] = useState(1)
   const [professions, setProfession] = useState()
   const [selectedProf, setSelectedProf] = useState()
-  const pageSize = 2
+  const pageSize = 4
 
   useEffect(() => {
     api.professions.fetchAll().then((data) => setProfession(data))
@@ -34,8 +35,9 @@ const Users = ({ users, ...rest }) => {
   }
 
   const filteredUsers = selectedProf
-    ? users.filter((user) => user.profession === selectedProf)
+    ? users.filter((user) => _.isEqual(user.profession, selectedProf))
     : users
+
   const count = filteredUsers.length
 
   const userCrop = paginate(filteredUsers, currentPage, pageSize)
