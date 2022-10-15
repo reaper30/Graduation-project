@@ -18,6 +18,7 @@ module.exports = {
       { anonymous: "always", named: "never" }
     ],
     quotes: ["error", "double", { allowTemplateLiterals: true }],
-    "spaced-comment": ["error", "always"]
+    "spaced-comment": ["error", "never"],
+    "multiline-ternary": ["error", "always-multiline"]
   }
 }
