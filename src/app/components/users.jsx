@@ -54,7 +54,6 @@ const Users = () => {
 
   const handleSort = (item) => {
     setSortBy(item)
-    console.log(item)
   }
 
   if (users) {

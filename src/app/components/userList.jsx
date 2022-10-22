@@ -7,7 +7,7 @@ const UserList = () => {
   const params = useParams()
   const { userId } = params
 
-  return <>{userId ? <User userId={userId} /> : <Users id={userId} />}</>
+  return <>{userId ? <User userId={userId} /> : <Users />}</>
 }
 
 export default UserList
