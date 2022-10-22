@@ -110,7 +110,7 @@ const Users = () => {
       </div>
     )
   }
-  return "loading..."
+  return "Loading"
 }
 
 Users.propTypes = {
