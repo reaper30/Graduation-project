@@ -68,10 +68,9 @@ const UsersList = () => {
       ? users.filter((user) => _.isEqual(user.profession, selectedProf))
       : users
 
-    const searchFilterUsers = users.filter((user) => {
-      const splitName = user.name.toLowerCase().split("")
-      return splitName.includes(searchUser.toLowerCase())
-    })
+    const searchFilterUsers = users.filter((user) =>
+      user.name.toLowerCase().includes(searchUser.toLowerCase())
+    )
 
     const sortedUsers = _.orderBy(filteredUsers, [sortBy.path], [sortBy.order])
 
@@ -103,7 +102,7 @@ const UsersList = () => {
         )}
 
         <div className="d-flex flex-column">
-          <SearchStatus length={userCrop.length} />
+          <SearchStatus length={count} />
           <UserSearchField
             type="text"
             name="user-search"
