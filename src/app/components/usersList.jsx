@@ -7,12 +7,14 @@ import GroupList from "./groupList"
 import SearchStatus from "./searchStatus"
 import api from "../api"
 import _ from "lodash"
+import UserSearchField from "./searchUser"
 
-const Users = () => {
+const UsersList = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [professions, setProfession] = useState()
   const [selectedProf, setSelectedProf] = useState()
   const [sortBy, setSortBy] = useState({ path: "name", order: "" })
+  const [searchUser, setSearchUser] = useState("")
   const pageSize = 8
 
   const [users, setUsers] = useState()
@@ -20,6 +22,14 @@ const Users = () => {
   useEffect(() => {
     api.users.fetchAll().then((data) => setUsers(data))
   }, [])
+
+  useEffect(() => {
+    api.professions.fetchAll().then((data) => setProfession(data))
+  }, [])
+
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [selectedProf])
 
   const handleDelete = (userId) => {
     setUsers(users.filter((user) => user._id !== userId))
@@ -36,24 +46,21 @@ const Users = () => {
     )
   }
 
-  useEffect(() => {
-    api.professions.fetchAll().then((data) => setProfession(data))
-  }, [])
-
-  useEffect(() => {
-    setCurrentPage(1)
-  }, [selectedProf])
-
   const handlePageChange = (pageIndex) => {
     setCurrentPage(pageIndex)
   }
 
   const handleProfessionSelect = (item) => {
     setSelectedProf(item)
+    setSearchUser("")
   }
 
   const handleSort = (item) => {
     setSortBy(item)
+  }
+
+  const handleUserSearch = ({ target }) => {
+    setSearchUser(target.value)
   }
 
   if (users) {
@@ -61,11 +68,20 @@ const Users = () => {
       ? users.filter((user) => _.isEqual(user.profession, selectedProf))
       : users
 
-    const count = filteredUsers.length
+    const searchFilterUsers = users.filter((user) => {
+      const splitName = user.name.toLowerCase().split("")
+      return splitName.includes(searchUser.toLowerCase())
+    })
 
     const sortedUsers = _.orderBy(filteredUsers, [sortBy.path], [sortBy.order])
 
-    const userCrop = paginate(sortedUsers, currentPage, pageSize)
+    const count = searchUser ? searchFilterUsers.length : filteredUsers.length
+
+    const userCrop = paginate(
+      searchUser ? searchFilterUsers : sortedUsers,
+      currentPage,
+      pageSize
+    )
 
     const clearFilter = () => {
       setSelectedProf()
@@ -87,7 +103,15 @@ const Users = () => {
         )}
 
         <div className="d-flex flex-column">
-          <SearchStatus length={count} />
+          <SearchStatus length={userCrop.length} />
+          <UserSearchField
+            type="text"
+            name="user-search"
+            placeholder="Search..."
+            value={searchUser}
+            onChange={handleUserSearch}
+          />
+
           {count > 0 && (
             <UserTable
               users={userCrop}
@@ -112,8 +136,8 @@ const Users = () => {
   return "Loading"
 }
 
-Users.propTypes = {
+UsersList.propTypes = {
   users: PropTypes.array.isRequired
 }
 
-export default Users
+export default UsersList

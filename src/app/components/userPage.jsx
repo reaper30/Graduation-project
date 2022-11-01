@@ -4,40 +4,39 @@ import api from "../api"
 import QualitiesList from "./qualitiesList"
 import { useHistory } from "react-router-dom"
 
-const User = ({ userId }) => {
+const UserPage = ({ userId }) => {
   const [user, setUser] = useState()
   const history = useHistory()
 
-  const handleBackToUsers = () => {
+  const handleClick = () => {
     history.push("/users")
   }
 
   useEffect(() => {
     api.users.getById(userId).then((data) => setUser(data))
-  }, [])
+  })
   console.log(user)
 
   return (
     <>
-      {user
-        ? <>
+      {user ? (
+        <>
           <h1>{user.name}</h1>
           <h2>Профессия: {user.profession.name}</h2>
-          <h5>{<QualitiesList qualities={user.qualities} />}</h5>
-          <h5>completedMeetings: {user.completedMeetings}</h5>
+          {<QualitiesList qualities={user.qualities} />}
+          <p>completedMeetings: {user.completedMeetings}</p>
           <h2>Rate: {user.rate}</h2>
-          <button onClick={handleBackToUsers}>
-            Все пользователи
-          </button>
+          <button onClick={handleClick}>Все пользователи</button>
         </>
-        : <h2>Loading</h2>
-      }
+      ) : (
+        <h2>Loading</h2>
+      )}
     </>
   )
 }
 
-User.propTypes = {
+UserPage.propTypes = {
   userId: PropTypes.string
 }
 
-export default User
+export default UserPage

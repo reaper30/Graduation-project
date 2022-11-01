@@ -2,9 +2,9 @@ import React from "react"
 //import Users from "./components/users"
 import NavBar from "./components/navBar"
 import { Redirect, Route, Switch } from "react-router-dom"
-import Main from "./components/main"
-import Login from "./components/login"
-import UserList from "./components/userList"
+import Main from "./layouts/main"
+import Login from "./layouts/login"
+import UserList from "./layouts/users"
 import NotFound from "./components/notFound"
 
 function App() {
