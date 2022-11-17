@@ -10,7 +10,9 @@ import { useParams } from "react-router-dom"
 const EditUserPage = () => {
   const getProfessionById = (id) => {
     for (const prof of professions) {
+      console.log(prof)
       if (prof.value === id) {
+        console.log(prof.value)
         return { _id: prof.value, name: prof.label }
       }
     }
@@ -18,7 +20,6 @@ const EditUserPage = () => {
   const getQualities = (elements) => {
     const qualitiesArray = []
     for (const elem of elements) {
-      //console.log(elem)
       for (const quality in qualities) {
         if (elem.value === qualities[quality].value) {
           qualitiesArray.push({
@@ -60,13 +61,14 @@ const EditUserPage = () => {
       }))
       setQualities(qualitiesList)
     })
-    api.users.getById(userId).then((data) =>
+    api.users.getById(userId).then((data) => {
+      const { profession, qualities } = data
       setData({
         ...data,
-        profession: getProfessionById(professions),
+        profession: getProfessionById(profession._id),
         qualities: getQualities(qualities)
       })
-    )
+    })
   }, [])
 
   const handleChange = (target) => {
@@ -99,7 +101,7 @@ const EditUserPage = () => {
               <SelectField
                 label="Выберите свою профессию"
                 name="profession"
-                value={data.profession.value}
+                value={data.profession}
                 onChange={handleChange}
                 options={professions}
                 defaultOption="Choose..."
