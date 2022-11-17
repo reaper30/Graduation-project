@@ -8,33 +8,31 @@ import PropTypes from "prop-types"
 import { useParams } from "react-router-dom"
 
 const EditUserPage = () => {
-  const getProfessionById = (id) => {
-    for (const prof of professions) {
-      console.log(prof)
-      if (prof.value === id) {
-        console.log(prof.value)
-        return { _id: prof.value, name: prof.label }
-      }
-    }
-  }
-  const getQualities = (elements) => {
-    const qualitiesArray = []
-    for (const elem of elements) {
-      for (const quality in qualities) {
-        if (elem.value === qualities[quality].value) {
-          qualitiesArray.push({
-            value: qualities[quality].value,
-            label: qualities[quality].label
-          })
-        }
-      }
-    }
-    return qualitiesArray
-  }
+  //const getProfessionById = (id) => {
+  //  for (const prof of professions) {
+  //    if (prof.value === id) {
+  //      return { _id: prof.value, name: prof.label }
+  //    }
+  //  }
+  //}
+  //const getQualities = (elements) => {
+  //  const qualitiesArray = []
+  //  for (const elem of elements) {
+  //    for (const quality in qualities) {
+  //      if (elem.value === qualities[quality].value) {
+  //        qualitiesArray.push({
+  //          value: qualities[quality].value,
+  //          label: qualities[quality].label
+  //        })
+  //      }
+  //    }
+  //  }
+  //  return qualitiesArray
+  //}
 
   const userId = useParams().userId
 
-  const [professions, setProfession] = useState([])
+  const [professions, setProfession] = useState({})
   const [qualities, setQualities] = useState([])
   const [data, setData] = useState({
     name: "",
@@ -62,11 +60,14 @@ const EditUserPage = () => {
       setQualities(qualitiesList)
     })
     api.users.getById(userId).then((data) => {
-      const { profession, qualities } = data
       setData({
         ...data,
-        profession: getProfessionById(profession._id),
-        qualities: getQualities(qualities)
+        profession: data.profession._id,
+        qualities: data.qualities.map((quality) => ({
+          label: quality.name,
+          value: quality._id,
+          color: quality.color
+        }))
       })
     })
   }, [])
@@ -77,12 +78,12 @@ const EditUserPage = () => {
       [target.name]: target.value
     }))
   }
-
-  if (data) {
-    return (
-      <div className="container mt-5">
-        <div className="row">
-          <div className="col-md-6 offset-md-3 shadow p-4">
+  console.log(Object.values(data).length !== 0)
+  return (
+    <div className="container mt-5">
+      <div className="row">
+        <div className="col-md-6 offset-md-3 shadow p-4">
+          {data.profession ? (
             <form>
               <TextField
                 label="Имя"
@@ -128,12 +129,13 @@ const EditUserPage = () => {
                 Обновить
               </button>
             </form>
-          </div>
+          ) : (
+            "Loading..."
+          )}
         </div>
       </div>
-    )
-  }
-  return "Loading..."
+    </div>
+  )
 }
 
 EditUserPage.propTypes = {
