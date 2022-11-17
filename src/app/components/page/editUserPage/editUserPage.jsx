@@ -23,8 +23,7 @@ const EditUserPage = () => {
         if (elem.value === qualities[quality].value) {
           qualitiesArray.push({
             value: qualities[quality].value,
-            label: qualities[quality].label,
-            color: qualities[quality].color
+            label: qualities[quality].label
           })
         }
       }
@@ -39,14 +38,13 @@ const EditUserPage = () => {
   const [data, setData] = useState({
     name: "",
     email: "",
-    profession: getProfessionById(userId),
+    profession: "",
     sex: "",
-    qualities: getQualities(qualities)
+    qualities: []
   })
 
-  console.log(data.qualities)
+  console.log(data)
   useEffect(() => {
-    api.users.getById(userId).then((data) => setData(data))
     api.professions.fetchAll().then((data) => {
       const professionsList = Object.keys(data).map((professionName) => ({
         label: data[professionName].name,
@@ -62,6 +60,13 @@ const EditUserPage = () => {
       }))
       setQualities(qualitiesList)
     })
+    api.users.getById(userId).then((data) =>
+      setData({
+        ...data,
+        profession: getProfessionById(professions),
+        qualities: getQualities(qualities)
+      })
+    )
   }, [])
 
   const handleChange = (target) => {
@@ -71,7 +76,7 @@ const EditUserPage = () => {
     }))
   }
 
-  if (data.profession) {
+  if (data) {
     return (
       <div className="container mt-5">
         <div className="row">
@@ -94,7 +99,7 @@ const EditUserPage = () => {
               <SelectField
                 label="Выберите свою профессию"
                 name="profession"
-                value={data.profession._id}
+                value={data.profession.value}
                 onChange={handleChange}
                 options={professions}
                 defaultOption="Choose..."
