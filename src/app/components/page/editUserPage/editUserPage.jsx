@@ -11,6 +11,7 @@ const EditUserPage = () => {
   const userId = useParams().userId
   const history = useHistory()
 
+  const [isLoading, setLoading] = useState(false)
   const [professions, setProfession] = useState({})
   const [qualities, setQualities] = useState([])
   const [data, setData] = useState({
@@ -21,7 +22,8 @@ const EditUserPage = () => {
     qualities: []
   })
 
-  console.log(data)
+  console.log(qualities)
+  console.log(data.qualities)
   useEffect(() => {
     api.professions.fetchAll().then((data) => {
       const professionsList = Object.keys(data).map((professionName) => ({
@@ -48,40 +50,43 @@ const EditUserPage = () => {
           color: quality.color
         }))
       })
+      setLoading(!isLoading)
     })
   }, [])
-
   const userUpdate = (e) => {
     e.preventDefault()
-    const { profession } = data
+    const { profession, qualities } = data
 
-    api.users.update(userId, [getProfessionById(profession)])
-    history.push(`/users/${userId}/edit`)
+    api.users.update(userId, {
+      profession: getProfessionById(profession),
+      qualities: getQualities(qualities)
+    })
+    history.push(`/users/${userId}`)
   }
 
   const getProfessionById = (id) => {
     for (const prof of professions) {
       if (prof.value === id) {
-        return [{ _id: prof.value, name: prof.label }]
+        return { _id: prof.value, name: prof.label }
       }
     }
   }
 
-  //const getQualities = (elements) => {
-  //  const qualitiesArray = []
-  //  for (const elem of elements) {
-  //    for (const quality of qualities) {
-  //      if (elem.value === qualities[quality].value) {
-  //        qualitiesArray.push({
-  //          _id: qualities[quality].value,
-  //          name: qualities[quality].label,
-  //          color: qualities[quality].color
-  //        })
-  //      }
-  //    }
-  //  }
-  //  return qualitiesArray
-  //}
+  const getQualities = (userQualities) => {
+    const qualitiesArray = []
+    for (const userQuality of userQualities) {
+      for (const quality of qualities) {
+        if (userQuality.value === quality.value) {
+          qualitiesArray.push({
+            _id: quality.value,
+            name: quality.label,
+            color: quality.color
+          })
+        }
+      }
+    }
+    return qualitiesArray
+  }
 
   const handleChange = (target) => {
     setData((prevState) => ({
@@ -93,7 +98,7 @@ const EditUserPage = () => {
     <div className="container mt-5">
       <div className="row">
         <div className="col-md-6 offset-md-3 shadow p-4">
-          {data.profession ? (
+          { isLoading ? (
             <form>
               <TextField
                 label="Имя"
