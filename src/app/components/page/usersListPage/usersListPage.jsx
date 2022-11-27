@@ -133,7 +133,7 @@ const UsersListPage = () => {
 }
 
 UsersListPage.propTypes = {
-  users: PropTypes.array.isRequired
+  users: PropTypes.array
 }
 
 export default UsersListPage

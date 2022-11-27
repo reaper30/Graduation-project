@@ -5,32 +5,11 @@ import api from "../../../api"
 import RadioField from "../../common/form/edit/radioField"
 import MultiSelectField from "../../common/form/edit/multiSelectField"
 import PropTypes from "prop-types"
-import { useParams } from "react-router-dom"
+import { useHistory, useParams } from "react-router-dom"
 
 const EditUserPage = () => {
-  //const getProfessionById = (id) => {
-  //  for (const prof of professions) {
-  //    if (prof.value === id) {
-  //      return { _id: prof.value, name: prof.label }
-  //    }
-  //  }
-  //}
-  //const getQualities = (elements) => {
-  //  const qualitiesArray = []
-  //  for (const elem of elements) {
-  //    for (const quality in qualities) {
-  //      if (elem.value === qualities[quality].value) {
-  //        qualitiesArray.push({
-  //          value: qualities[quality].value,
-  //          label: qualities[quality].label
-  //        })
-  //      }
-  //    }
-  //  }
-  //  return qualitiesArray
-  //}
-
   const userId = useParams().userId
+  const history = useHistory()
 
   const [professions, setProfession] = useState({})
   const [qualities, setQualities] = useState([])
@@ -72,13 +51,44 @@ const EditUserPage = () => {
     })
   }, [])
 
+  const userUpdate = (e) => {
+    e.preventDefault()
+    const { profession } = data
+
+    api.users.update(userId, [getProfessionById(profession)])
+    history.push(`/users/${userId}/edit`)
+  }
+
+  const getProfessionById = (id) => {
+    for (const prof of professions) {
+      if (prof.value === id) {
+        return [{ _id: prof.value, name: prof.label }]
+      }
+    }
+  }
+
+  //const getQualities = (elements) => {
+  //  const qualitiesArray = []
+  //  for (const elem of elements) {
+  //    for (const quality of qualities) {
+  //      if (elem.value === qualities[quality].value) {
+  //        qualitiesArray.push({
+  //          _id: qualities[quality].value,
+  //          name: qualities[quality].label,
+  //          color: qualities[quality].color
+  //        })
+  //      }
+  //    }
+  //  }
+  //  return qualitiesArray
+  //}
+
   const handleChange = (target) => {
     setData((prevState) => ({
       ...prevState,
       [target.name]: target.value
     }))
   }
-  console.log(Object.values(data).length !== 0)
   return (
     <div className="container mt-5">
       <div className="row">
@@ -125,7 +135,10 @@ const EditUserPage = () => {
                 name="qualities"
                 label="Выберите ваши качества"
               />
-              <button className="btn btn-primary w-100 mx-auto">
+              <button
+                className="btn btn-primary w-100 mx-auto"
+                onClick={userUpdate}
+              >
                 Обновить
               </button>
             </form>
