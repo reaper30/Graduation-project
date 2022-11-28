@@ -183,6 +183,7 @@ const update = (id, data) =>
     const users = JSON.parse(localStorage.getItem("users"))
     const userIndex = users.findIndex((u) => u._id === id)
     users[userIndex] = { ...users[userIndex], ...data }
+    console.log(users[userIndex])
     localStorage.setItem("users", JSON.stringify(users))
     resolve(users[userIndex])
   })

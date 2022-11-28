@@ -53,11 +53,13 @@ const EditUserPage = () => {
       setLoading(!isLoading)
     })
   }, [])
+
   const userUpdate = (e) => {
     e.preventDefault()
     const { profession, qualities } = data
 
     api.users.update(userId, {
+      ...data,
       profession: getProfessionById(profession),
       qualities: getQualities(qualities)
     })
@@ -98,7 +100,7 @@ const EditUserPage = () => {
     <div className="container mt-5">
       <div className="row">
         <div className="col-md-6 offset-md-3 shadow p-4">
-          { isLoading ? (
+          {isLoading ? (
             <form>
               <TextField
                 label="Имя"
