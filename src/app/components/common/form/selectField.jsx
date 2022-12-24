@@ -13,6 +13,7 @@ const SelectField = ({
   const handleChange = ({ target }) => {
     onChange({ name: name, value: target.value })
   }
+  console.log(options)
 
   const getInputClasses = () => {
     return "form-select" + (error ? " is-invalid" : "")
@@ -41,7 +42,7 @@ const SelectField = ({
         {optionsArray.length > 0 &&
           optionsArray.map((option) => (
             <option value={option.value} key={option.value}>
-              {option.label}
+              {option.name}
             </option>
           ))}
       </select>

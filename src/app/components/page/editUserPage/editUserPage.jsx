@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react"
-import TextField from "../../common/form/edit/textField"
-import SelectField from "../../common/form/edit/selectField"
+import TextField from "../../common/form/textField"
+import SelectField from "../../common/form/selectField"
 import api from "../../../api"
-import RadioField from "../../common/form/edit/radioField"
-import MultiSelectField from "../../common/form/edit/multiSelectField"
+import RadioField from "../../common/form/radioField"
+import MultiSelectField from "../../common/form/multiSelectField"
 import PropTypes from "prop-types"
 import { useHistory, useParams } from "react-router-dom"
+import BackHistoryButton from "../../common/form/backButton"
 
 const EditUserPage = () => {
   const userId = useParams().userId
@@ -22,8 +23,6 @@ const EditUserPage = () => {
     qualities: []
   })
 
-  console.log(qualities)
-  console.log(data.qualities)
   useEffect(() => {
     api.professions.fetchAll().then((data) => {
       const professionsList = Object.keys(data).map((professionName) => ({
@@ -98,6 +97,7 @@ const EditUserPage = () => {
   }
   return (
     <div className="container mt-5">
+      <BackHistoryButton />
       <div className="row">
         <div className="col-md-6 offset-md-3 shadow p-4">
           {isLoading ? (

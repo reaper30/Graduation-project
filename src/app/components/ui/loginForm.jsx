@@ -5,7 +5,7 @@ import CheckBoxField from "../common/form/checkBoxField"
 
 const LoginForm = () => {
   const [data, setData] = useState({ email: "", password: "" })
-  const [errors, setErros] = useState({})
+  const [errors] = useState({})
 
   const validatorConfig = {
     email: {
